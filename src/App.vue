@@ -23,7 +23,8 @@
 
         <div class="inner-block">
           <center>
-            <img src="./assets/logo.jpg">
+            <img src="./assets/logo.png" width="350"
+            height="180">
           </center>
           <router-view />
         </div>

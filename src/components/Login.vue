@@ -12,8 +12,9 @@
                 <label>Password</label>
                 <input type="password" class="form-control form-control-lg" />
             </div>
-
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+            <router-link :to="{name: 'overview'}">
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+            </router-link>
 
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">Forgot password ?</router-link>
