@@ -10,16 +10,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Login.vue')
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../components/Signup.vue')
-  },
-  {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue')
-  },
-  {
     path: '/overview',
     name: 'overview',
     component: () => import('../components/Overview.vue')
