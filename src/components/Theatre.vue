@@ -1,6 +1,5 @@
 <template>
     <div>
-        
         <Operations theatre_number="1"/>
     </div>
 </template>
