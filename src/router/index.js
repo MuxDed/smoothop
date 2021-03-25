@@ -13,6 +13,16 @@ Vue.use(VueRouter)
     path: '/overview',
     name: 'overview',
     component: () => import('../components/Overview.vue')
+  },
+  {
+    path: '/theatre',
+    name: 'theatre',
+    component: () => import('../components/Theatre.vue')
+  },
+  {
+    path: '/theatre/operations',
+    name: 'operations',
+    component: () => import('../components/Operations.vue')
   }
 ]
 

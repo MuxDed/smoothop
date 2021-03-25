@@ -40,5 +40,5 @@
 <script>
 
 
-export default {};
+
 </script>

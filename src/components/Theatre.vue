@@ -5,6 +5,10 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-    import Operations from './Operations'
+    export default{
+        name: 'Theatre',
+        props:{
+            operations: Array
+        }
+    }
 </script>
