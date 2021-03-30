@@ -7,6 +7,8 @@
           v-for="(op, index) in ops"
           style="margin-top : 20px"
         >
+        <!-- This should go into Operation.vue and then that instance of an operation should be 
+        passed into Theatre.vue, and that instance displayed here through Theatre.vue -->
           Room : {{ op.data.theatre_number }}<br />
           Current stage : {{ op.data.current_stage }} <br />
           Anaesthetist : {{ op.data.anaesthetist }} <br />
@@ -30,6 +32,7 @@
 </template>
 
 <script>
+// This should be put into Operations.vue
 import firebase from "../fire.js";
 var opsRef = firebase.database().ref("/operations");
 export default {
