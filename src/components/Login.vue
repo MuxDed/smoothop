@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import firebase from '../fire.js';
+import firebase from "firebase";
 
 export default {
   data() {
@@ -57,6 +57,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$router.push('/overview');
+          console.log(firebase.auth().currentUser);
         })
         .catch(error => {
           this.sign_in_update = "Incorrect username/password";
