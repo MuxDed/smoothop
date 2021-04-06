@@ -4,16 +4,17 @@
       <img src="../assets/logo.png" width="350" height="180" />
     </center>
     <div class="vue-tempalte">
-      <form action="#" @submit.prevent="submit">
+      <form action="#" @submit.prevent="login">
         <h3>Sign In</h3>
 
         <div class="form-group">
           <label>Username</label>
           <input
-            type="text"
+            type="email"
             class="form-control form-control-lg"
-            id="username"
-            v-model="username"
+            id="user_email"
+            placeholder="Email address..."
+            v-model="email"
           />
         </div>
 
@@ -27,18 +28,42 @@
             v-model="password"
           />
         </div>
-        <router-link :to="{ name: 'overview' }">
           <button type="submit" class="btn btn-dark btn-lg btn-block">
             Sign In
           </button>
-        </router-link>
       </form>
+      <span id="sign_in_update">
+        {{sign_in_update}}
+      </span>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from '../fire.js';
 
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      sign_in_update: '',
+    };
+  },
+  methods: {
+    login() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.push('/overview');
+        })
+        .catch(error => {
+          this.sign_in_update = "Incorrect username/password";
+        });
+    },
+  }
+}
 
 
 </script>
