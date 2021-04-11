@@ -23,7 +23,7 @@
           <input
             type="password"
             class="form-control form-control-lg"
-            placeholder="******"
+            placeholder="**********"
             id="password"
             v-model="password"
           />
