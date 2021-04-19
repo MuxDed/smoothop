@@ -26,6 +26,9 @@
           <option value="cardiothor">Cardiothoracic</option>
         </select>
 
+        <label for="Procedure">Procedure</label><br />
+        <input type="text" id="procedure" name="procedure" /><br />
+
         <label for="anaesthetist">Anaesthetist:</label><br />
         <input type="text" id="anaesthetist" name="anaesthetist" /><br />
 
