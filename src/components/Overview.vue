@@ -3,7 +3,7 @@
     <div class="new-operation" style="margin-top: 7300px">
       <h2>New Operation</h2>
 
-      <form>
+      <form id="newOperation">
         <label for="room">Room</label><br />
 
         <select name="room" id="room">
@@ -60,7 +60,7 @@
           type="submit"
           value="Submit"
           style="margin-top : 20px; float: right;"
-          @click="newOp(index)"
+          @click="newOp()"
           class="button"
         />
       </form>
@@ -124,12 +124,12 @@
         </div>
 
         <!-- TODO Run a forloop for each comment -->
+        <div style="margin-top : 300px;">Comments: <br /></div>
         <div
-          style="margin-top : 300px; border:1px ridge grey; padding: 5px 15px 10px 15px; border-radius: 15px;"
+          style="margin-top : 0px; border:1px ridge grey; padding: 5px 15px 10px 15px; border-radius: 15px;"
         >
-          Comments: <br />
           {{ op.data.comments }}
-
+        </div>
           <form style="margin-top : 20px;">
             <label for="comment">New Comment:</label><br />
             <input
@@ -140,7 +140,6 @@
             />
             <input type="submit" value="Submit" class="button" />
           </form>
-        </div>
         <button
           style="margin-top : 20px;"
           @click="prevStage(index)"
@@ -192,11 +191,14 @@ export default {
         this.ops[index].data.current_stage =
           this.ops[index].data.current_stage + 1;
         // ATTEMPT AT MAKING TIMER
-        // var start = Date.now();
-        // setInterval(function() {
-        // var delta = Date.now() - start; // milliseconds elapsed since start
-        // console.log(new Date().toUTCString());
-        // }, 1000); // update about every second
+        this.ops[index].data.curr_stage_start_time = this.ops[index].data.curr_stage_start_time - this.ops[index].data.curr_stage_start_time;
+        //var ts = Math.round((new Date()).getTime() / 1000);
+        var start = Math.round((new Date()).getTime() / 1000);
+        setInterval(function() {
+        var delta = Math.round((new Date()).getTime() / 1000) - start; 
+        //console.log(delta);
+        this.ops[index].data.curr_stage_start_time = this.ops[index].data.curr_stage_start_time + delta;
+        }, 1000); // update about every second
       }
       //update database using firebase function
       opsRef
@@ -206,6 +208,7 @@ export default {
         .child(key)
         .update({
           current_stage: this.ops[index].data.current_stage,
+          curr_stage_start_time: this.ops[index].data.curr_stage_start_time,
         });
     },
     // Previous Stage Button
@@ -262,4 +265,6 @@ export default {
     });
   },
 };
+
+// document.getElementById('newOperation').addEventListener('submit');
 </script>
