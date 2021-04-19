@@ -130,16 +130,11 @@
         >
           {{ op.data.comments }}
         </div>
-          <form style="margin-top : 20px;">
-            <label for="comment">New Comment:</label><br />
-            <input
-              type="text"
-              id="comment"
-              name="comment"
-              style="width: 80%;"
-            />
-            <input type="submit" value="Submit" class="button" />
-          </form>
+        <form style="margin-top : 20px;">
+          <label for="comment">New Comment:</label><br />
+          <input type="text" id="comment" name="comment" style="width: 80%;" />
+          <input type="submit" value="Submit" class="button" />
+        </form>
         <button
           style="margin-top : 20px;"
           @click="prevStage(index)"
@@ -190,14 +185,18 @@ export default {
       if (this.ops[index].data.current_stage < 5) {
         this.ops[index].data.current_stage =
           this.ops[index].data.current_stage + 1;
+          
         // ATTEMPT AT MAKING TIMER
-        this.ops[index].data.curr_stage_start_time = this.ops[index].data.curr_stage_start_time - this.ops[index].data.curr_stage_start_time;
+        this.ops[index].data.curr_stage_start_time =
+          this.ops[index].data.curr_stage_start_time -
+          this.ops[index].data.curr_stage_start_time;
         //var ts = Math.round((new Date()).getTime() / 1000);
-        var start = Math.round((new Date()).getTime() / 1000);
+        var start = Math.round(new Date().getTime() / 1000);
         setInterval(function() {
-        var delta = Math.round((new Date()).getTime() / 1000) - start; 
-        //console.log(delta);
-        this.ops[index].data.curr_stage_start_time = this.ops[index].data.curr_stage_start_time + delta;
+          var delta = Math.round(new Date().getTime() / 1000) - start;
+          //console.log(delta);
+          this.ops[index].data.curr_stage_start_time =
+            this.ops[index].data.curr_stage_start_time + delta;
         }, 1000); // update about every second
       }
       //update database using firebase function
