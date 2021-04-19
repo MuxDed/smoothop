@@ -77,8 +77,8 @@
           <h3>Room : {{ op.data.theatre_number }}</h3>
           <br />
           <p style="text-align:center">
-            <b>Stage : {{ op.data.current_stage }}</b> <br />
-            <b>Stage Time: {{ op.data.curr_stage_start_time }}</b
+            <b>Stage : {{ parseStage(op.data.current_stage) }}</b> <br />
+            <b>Stage Time: {{ minutesSinceUnix(op.data.curr_stage_start_time) }} minutes</b
             ><br />
           </p>
         </div>
@@ -182,33 +182,26 @@ export default {
       //get data by index
       let op_room = this.ops[index].data.theatre_number;
       //update current stage by 1 locally in array
-      if (this.ops[index].data.current_stage < 5) {
+      if (this.ops[index].data.current_stage < 6) {
         this.ops[index].data.current_stage =
           this.ops[index].data.current_stage + 1;
+
+          // get unix time in seconds
+          const secondsSinceEpoch = Math.round(Date.now() / 1000);
+          this.ops[index].data.curr_stage_start_time = secondsSinceEpoch;
           
-        // ATTEMPT AT MAKING TIMER
-        this.ops[index].data.curr_stage_start_time =
-          this.ops[index].data.curr_stage_start_time -
-          this.ops[index].data.curr_stage_start_time;
-        //var ts = Math.round((new Date()).getTime() / 1000);
-        var start = Math.round(new Date().getTime() / 1000);
-        setInterval(function() {
-          var delta = Math.round(new Date().getTime() / 1000) - start;
-          //console.log(delta);
-          this.ops[index].data.curr_stage_start_time =
-            this.ops[index].data.curr_stage_start_time + delta;
-        }, 1000); // update about every second
-      }
+      
       //update database using firebase function
       opsRef
-        //first child - key for access is operating theatre (1, 2, ect)
+        //first child - key for access is operating theatre (1, 2, etc)
         .child(op_room)
         //second child (key)
         .child(key)
         .update({
           current_stage: this.ops[index].data.current_stage,
-          curr_stage_start_time: this.ops[index].data.curr_stage_start_time,
+          curr_stage_start_time: this.ops[index].data.curr_stage_start_time
         });
+      }
     },
     // Previous Stage Button
     prevStage(index) {
@@ -239,6 +232,27 @@ export default {
         .update({
           current_stage: this.ops[index].data.current_stage,
         });
+    },
+    // converts unix time to minutes
+    minutesSinceUnix(unixTime) {
+      let currTime = Math.round(Date.now() / 1000);
+      let diff = currTime - unixTime;
+      let mins = Math.ceil(diff / 60);
+      return (mins > 999) ? 0 : mins;
+    },
+    // Parses out stage 0 (not started) and 6 (finished)
+    parseStage(stage) {
+      switch(stage) {
+        case 0:
+          return "Not started";
+          break;
+        case 6:
+          return "Finished";
+          break;
+        default:
+          return stage;
+          break;  
+      }
     },
   },
   mounted() {
